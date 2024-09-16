@@ -34,7 +34,7 @@ export const predictFaces = (imgurl) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Key ' + PAT
+      'Authorization': 'Key ' + apiKey
     },
     body: raw
   };
@@ -46,7 +46,7 @@ export const predictFaces = (imgurl) => {
   .then(result => {
     console.log('Received response:', result);
     if (result.outputs && result.outputs[0].data && result.outputs[0].data.regions) {
-        console.log( result.outputs[0].data.regions);
+        console.log( 'detected '+result.outputs[0].data.regions);
         return result.outputs[0].data.regions; // Return all regions
         
     

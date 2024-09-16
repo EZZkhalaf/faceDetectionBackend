@@ -46,7 +46,7 @@ const handleImgURL = (req,res) =>{
         .then(response => response.json())
         .then(result => {
             // console.log('Received response:', result);
-
+             
             // Check if the result contains the necessary data
             if (result.outputs && result.outputs[0].data && result.outputs[0].data.regions) {
                 // Send the regions data back to the client

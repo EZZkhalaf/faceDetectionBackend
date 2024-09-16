@@ -27,6 +27,13 @@ const handleSignin =  (req, res ,db , bcrypt) => {
                     .then(user => {
                         if (user.length) {
                             res.json(user[0]); // Return user details
+
+
+
+                           
+
+
+
                         } else {
                             res.status(400).json('User not found');
                         }

@@ -11,7 +11,6 @@ const image  = require('./controllers/image');
 
 
 
-
 const db = knex({
     client: 'pg',
     connection: {
@@ -23,20 +22,30 @@ const db = knex({
     },
   });
 
-    
-
-
-
-
-const app = express();
+  
+  
+  
+  
+  const app = express();
+  
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/',(req,res) =>{res.send(database.user)});
+app.get('/',(req,res) =>{
+    res.send(database.user);
+    const authToken = req.cookies.authToken;
+
+  if (authToken) {
+    // Validate the authToken, check if it's valid and belongs to a logged-in user
+    res.send('Welcome to your dashboard!');
+  } else {
+    res.redirect('/login'); // Redirect to login if no valid token
+  }
+});
 
 
 //signin
-app.post('/signin', (req,res) =>{ signin.handleSignin(req,res,db,bcrypt)}); //this way is called dependency injection 
+app.post('/signin', (req,res) =>{ signin.handleSignin(req,res,db,bcrypt )}); //this way is called dependency injection 
 
 //register
 app.post('/register',register.handleRegister(db,bcrypt) ); //another way for dependency injection
@@ -56,8 +65,3 @@ app.listen(3000 , () =>{
     console.log('its running');
 });
 
-
-//sign in -> post = success/failed
-//register -> post = username & passowrd 
-//profile : userid -> get= user
-// image -> put --> user object etc...
